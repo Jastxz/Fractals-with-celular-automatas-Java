@@ -8,13 +8,12 @@ public class Screen extends JPanel implements ActionListener {
 
     public Screen(World world) {
 
-        // Inicializamos el mundo local
+        // Initializing locale world
         this.localeWorld = world;
-        // Temporizador de refresco para las acciones y el repintado
-        // Variables de funcionamiento del programa
+        // Timer for refresh actions
         Timer timer = new Timer(GraphicUtilities.DELAY, this);
 
-        // Aspectos básicos de la pantalla
+        // Basics of screen
         Dimension size = new Dimension(1400,700);
         setPreferredSize(size);
         setBackground(Color.DARK_GRAY);
@@ -29,7 +28,7 @@ public class Screen extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         String command = e.getActionCommand();
-        // Manejando los botones para cambiar de pantallas
+        // Button actions for change screen
         if (GraphicUtilities.toOptionsCommand.equals(command)) {
             this.localeWorld.setScreen(GraphicUtilities.optionsScreen);
         } else if (GraphicUtilities.toPropertiesCommand.equals(command)) {
@@ -42,7 +41,7 @@ public class Screen extends JPanel implements ActionListener {
             this.localeWorld.setAnimation(true);
         }
 
-        // Gestionando los cambios de opciones de la pantalla de opciones
+        // Change of options
         String[][] optionsLabels = OptionsScreen.getOptionsLabels();
         int radioRow = -1;
         for (int i = 0; i < optionsLabels.length - 1; i++) {
@@ -98,7 +97,7 @@ public class Screen extends JPanel implements ActionListener {
             }
             case GraphicUtilities.propertiesScreen -> PropertiesScreen.createProperties(this,this.localeWorld);
             case GraphicUtilities.animationScreen -> {
-                AnimationScreen.createAnimation(this,this.localeWorld);
+                AnimationScreen.createAnimation(this);
                 if (this.localeWorld.getAutomata().length <= 1) {
                     String conditions = this.localeWorld.getConditions();
                     String board = this.localeWorld.getBoardTam();
@@ -112,5 +111,7 @@ public class Screen extends JPanel implements ActionListener {
             default -> WelcomeScreen.createWelcome(this);
         }
     }
+
+    protected World getWorld() {return localeWorld;}
 
 }

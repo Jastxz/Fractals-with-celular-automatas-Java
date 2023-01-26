@@ -108,14 +108,9 @@ public class OptionsScreen {
         ButtonGroup rulesG = new ButtonGroup();
         ButtonGroup boardG = new ButtonGroup();
 
-        // Conditions radio buttons
-        JRadioButton randomRB = GraphicUtilities.radioButton();
-        randomRB.setActionCommand(optionsLabels[1][0]);
-        JRadioButton oneRB = GraphicUtilities.radioButton();
-        oneRB.setActionCommand(optionsLabels[1][1]);
+        World world = screen.getWorld();
 
-        conditionsG.add(randomRB);conditionsG.add(oneRB);
-
+        // Labels
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < optionsLabels[i].length; j++) {
                 String option = optionsLabels[i][j];
@@ -124,38 +119,24 @@ public class OptionsScreen {
                 }
             }
         }
-        rectangle.add(randomRB);rectangle.add(oneRB);
-        // Vacios
-        rectangle.add(GraphicUtilities.textLine(""));rectangle.add(GraphicUtilities.textLine(""));
-        rectangle.add(GraphicUtilities.textLine(""));rectangle.add(GraphicUtilities.textLine(""));
-        rectangle.add(GraphicUtilities.textLine(""));rectangle.add(GraphicUtilities.textLine(""));
-        rectangle.add(GraphicUtilities.textLine(""));rectangle.add(GraphicUtilities.textLine(""));
 
-        // Rules radio buttons
-        JRadioButton r1RB = GraphicUtilities.radioButton();
-        r1RB.setActionCommand(optionsLabels[4][0]);
-        JRadioButton r2RB = GraphicUtilities.radioButton();
-        r2RB.setActionCommand(optionsLabels[4][1]);
-        JRadioButton r3RB = GraphicUtilities.radioButton();
-        r3RB.setActionCommand(optionsLabels[4][2]);
-        JRadioButton r4RB = GraphicUtilities.radioButton();
-        r4RB.setActionCommand(optionsLabels[4][3]);
-        JRadioButton r5RB = GraphicUtilities.radioButton();
-        r5RB.setActionCommand(optionsLabels[4][4]);
-        JRadioButton r6RB = GraphicUtilities.radioButton();
-        r6RB.setActionCommand(optionsLabels[4][5]);
-        JRadioButton r7RB = GraphicUtilities.radioButton();
-        r7RB.setActionCommand(optionsLabels[4][6]);
-        JRadioButton r8RB = GraphicUtilities.radioButton();
-        r8RB.setActionCommand(optionsLabels[4][7]);
-        JRadioButton r9RB = GraphicUtilities.radioButton();
-        r9RB.setActionCommand(optionsLabels[4][8]);
-        JRadioButton r10RB = GraphicUtilities.radioButton();
-        r10RB.setActionCommand(optionsLabels[4][9]);
+        // Conditions radio buttons
+        for (int i = 0; i < optionsLabels[2].length; i++) {
+            String option = optionsLabels[2][i];
+            String command = optionsLabels[1][i];
+            if (option.equals(radio)) {
+                JRadioButton radio = GraphicUtilities.radioButton();
+                radio.setActionCommand(command);
+                if (world.getConditions().equals(command)) radio.setSelected(true);
+                conditionsG.add(radio);
+                rectangle.add(radio);
+                radio.addActionListener(screen);
+            } else {
+                rectangle.add(GraphicUtilities.textLine(option));
+            }
+        }
 
-        rulesG.add(r1RB);rulesG.add(r2RB);rulesG.add(r3RB);rulesG.add(r4RB);rulesG.add(r5RB);
-        rulesG.add(r6RB);rulesG.add(r7RB);rulesG.add(r8RB);rulesG.add(r9RB);rulesG.add(r10RB);
-
+        // Labels
         for (int i = 3; i < 5; i++) {
             for (int j = 0; j < optionsLabels[i].length; j++) {
                 String option = optionsLabels[i][j];
@@ -164,22 +145,24 @@ public class OptionsScreen {
                 }
             }
         }
-        rectangle.add(r1RB);rectangle.add(r2RB);rectangle.add(r3RB);rectangle.add(r4RB);rectangle.add(r5RB);
-        rectangle.add(r6RB);rectangle.add(r7RB);rectangle.add(r8RB);rectangle.add(r9RB);rectangle.add(r10RB);
 
-        // Board radio buttons
-        JRadioButton smallRB = GraphicUtilities.radioButton();
-        smallRB.setActionCommand(optionsLabels[7][0]);
-        JRadioButton standardRB = GraphicUtilities.radioButton();
-        standardRB.setActionCommand(optionsLabels[7][1]);
-        JRadioButton bigRB = GraphicUtilities.radioButton();
-        bigRB.setActionCommand(optionsLabels[7][2]);
-        JRadioButton veryBigRB = GraphicUtilities.radioButton();
-        veryBigRB.setActionCommand(optionsLabels[7][3]);
+        // Rules radio buttons
+        for (int i = 0; i < optionsLabels[5].length; i++) {
+            String option = optionsLabels[5][i];
+            String command = optionsLabels[4][i];
+            if (option.equals(radio)) {
+                JRadioButton radio = GraphicUtilities.radioButton();
+                radio.setActionCommand(command);
+                if (world.getRule().toString().equals(command)) radio.setSelected(true);
+                rulesG.add(radio);
+                rectangle.add(radio);
+                radio.addActionListener(screen);
+            } else {
+                rectangle.add(GraphicUtilities.textLine(option));
+            }
+        }
 
-        boardG.add(smallRB);boardG.add(standardRB);
-        boardG.add(bigRB);boardG.add(veryBigRB);
-
+        // Labels
         for (int i = 6; i < 8; i++) {
             for (int j = 0; j < optionsLabels[i].length; j++) {
                 String option = optionsLabels[i][j];
@@ -188,29 +171,21 @@ public class OptionsScreen {
                 }
             }
         }
-        rectangle.add(smallRB);rectangle.add(standardRB);
-        rectangle.add(bigRB);rectangle.add(veryBigRB);
-        // Vacios
-        rectangle.add(GraphicUtilities.textLine(""));rectangle.add(GraphicUtilities.textLine(""));
-        rectangle.add(GraphicUtilities.textLine(""));rectangle.add(GraphicUtilities.textLine(""));
-        rectangle.add(GraphicUtilities.textLine(""));rectangle.add(GraphicUtilities.textLine(""));
 
-        // Añadimos los radio buttons a los eventos
-        randomRB.addActionListener(e -> {
-            conditionsG.clearSelection();
-            conditionsG.setSelected(randomRB.getModel(), true);
-            randomRB.validate();
-            screen.actionPerformed(e);
-        });
-        oneRB.addActionListener(e -> {
-            conditionsG.clearSelection();
-            oneRB.setSelected(true);
-            screen.actionPerformed(e);
-        });
-        for (JRadioButton jRadioButton : Arrays.asList(r1RB, r2RB, r3RB, r4RB, r5RB, r6RB,
-                r7RB, r8RB, r9RB, r10RB, smallRB, standardRB, bigRB, veryBigRB)) {
-            jRadioButton.addActionListener(screen);
+        // Board radio buttons
+        for (int i = 0; i < optionsLabels[8].length; i++) {
+            String option = optionsLabels[8][i];
+            String command = optionsLabels[7][i];
+            if (option.equals(radio)) {
+                JRadioButton radio = GraphicUtilities.radioButton();
+                radio.setActionCommand(command);
+                if (world.getBoardTam().equals(command)) radio.setSelected(true);
+                boardG.add(radio);
+                rectangle.add(radio);
+                radio.addActionListener(screen);
+            } else {
+                rectangle.add(GraphicUtilities.textLine(option));
+            }
         }
-
     }
 }

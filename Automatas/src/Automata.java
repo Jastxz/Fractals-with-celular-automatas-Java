@@ -31,14 +31,16 @@ public class Automata {
         int[][] automata = world.getAutomata();
         int rule = world.getRule();
         int row = world.getActualRow();
+        int[] previousRow = automata[row-1];
+        int prevRowSize = previousRow.length-1;
 
         for (int i = 0; i < automata.length; i++) {
-            int[] previousRow = automata[row-1];
             int left;int center = previousRow[i];int right;
+
             if (i == 0) {
-                left = previousRow[previousRow.length-1];
+                left = previousRow[prevRowSize];
                 right = previousRow[i+1];
-            } else if (i == previousRow.length - 1) {
+            } else if (i == prevRowSize) {
                 left = previousRow[i-1];
                 right = previousRow[0];
             } else {

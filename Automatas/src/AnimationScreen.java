@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 public class AnimationScreen {
 
-    protected static void createAnimation(Screen screen, World world) {
+    protected static void createAnimation(Screen screen) {
+
+        World world = screen.getWorld();
 
         int ncols = world.getAutomata().length;
         if (ncols==0) {ncols=1;}
