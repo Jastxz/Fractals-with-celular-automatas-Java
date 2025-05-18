@@ -1,3 +1,4 @@
+package com.jastxz.fractals;
 import java.util.Arrays;
 
 public class Automata {

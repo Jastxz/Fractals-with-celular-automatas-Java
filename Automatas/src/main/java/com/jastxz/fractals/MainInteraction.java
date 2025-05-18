@@ -1,3 +1,4 @@
+package com.jastxz.fractals;
 import javax.swing.*;
 
 public class MainInteraction {
