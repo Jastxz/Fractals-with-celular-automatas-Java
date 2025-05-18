@@ -47,7 +47,7 @@ tasks.register('jpackage', Exec) {
         '--app-version', "${project.version}",
         '--vendor', "Jastxz",
         '--description', "Fractal generator using cellular automata",
-        '--icon', 'src/main/resources/icon.ico',
+        '--icon', 'src/main/resources/favicon.ico',
         '--win-dir-chooser',
         '--win-menu',
         '--win-shortcut',
